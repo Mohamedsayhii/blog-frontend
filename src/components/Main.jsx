@@ -1,9 +1,6 @@
-import Header from './Header';
-
 function Main() {
 	return (
 		<>
-			<Header />
 			<h4>About Mohamed Sayhi</h4>
 			<p>
 				AI Researcher. Currently working as a Software Developer at
