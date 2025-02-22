@@ -1,9 +1,23 @@
+import styled from 'styled-components';
+import personalPhoto from '/personal-photo.jpg';
+
+const Container = styled.div`
+	margin-bottom: 2rem;
+
+	img {
+		width: 15rem;
+		height: 15rem;
+		border-radius: 10rem;
+		margin-bottom: -0.5rem;
+	}
+`;
+
 function Header() {
 	return (
-		<>
-			<img src='' alt='mohamed sayhi personal image' />
-			<h2>Mohamed Sayhi</h2>
-		</>
+		<Container>
+			<img src={personalPhoto} alt='mohamed sayhi personal image' />
+			<h1>Mohamed Sayhi</h1>
+		</Container>
 	);
 }
 
