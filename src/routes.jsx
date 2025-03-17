@@ -5,13 +5,13 @@ const routes = [
 	{
 		path: '/',
 		element: <App />,
-		children: {
-			path: ':postId',
-			element: <Post />,
-        },
-    },
-    
-    
+		children: [
+			{
+				path: ':postId',
+				element: <Post />,
+			},
+		],
+	},
 ];
 
 export default routes;
