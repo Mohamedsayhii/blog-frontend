@@ -18,15 +18,18 @@ function Main() {
 		<>
 			<Bio />
 			<div>
-				{posts.map((post) => {
-					<PostPreview
-						key={post.id}
-						id={post.id}
-						title={post.title}
-						content={post.content}
-						date={post.date}
-					/>;
-				})}
+				{posts.map(
+					(post) =>
+						post.published && (
+							<PostPreview
+								key={post.id}
+								id={post.id}
+								title={post.title}
+								content={post.content}
+								date={post.date}
+							/>
+						)
+				)}
 			</div>
 		</>
 	);
