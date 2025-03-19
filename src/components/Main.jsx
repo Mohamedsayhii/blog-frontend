@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Bio from './Bio';
+import PostPreview from './PostPreview';
 
 function Main() {
 	const [posts, setPosts] = useState([]);
@@ -16,7 +17,17 @@ function Main() {
 	return (
 		<>
 			<Bio />
-			<div>Posts go here</div>
+			<div>
+				{posts.map((post) => {
+					<PostPreview
+						key={post.id}
+						id={post.id}
+						title={post.title}
+						content={post.content}
+						date={post.date}
+					/>;
+				})}
+			</div>
 		</>
 	);
 }
