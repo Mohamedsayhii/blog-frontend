@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import personalPhoto from '/personal-photo.jpg';
 
 const Container = styled.div`
-	margin-bottom: 2rem;
-
 	img {
 		width: 15rem;
 		height: 15rem;

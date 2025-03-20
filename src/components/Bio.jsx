@@ -4,6 +4,7 @@ const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
+	margin: 1.5rem 0;
 
 	h2,
 	p {
@@ -17,9 +18,9 @@ function Bio() {
 			<h2>About Me</h2>
 			<p>
 				CS Enthusiast, AI Researcher and Programming lover at heart.
-				Currently working as a Software Developer at Vermeg and
-				finishing my masters thesis - Computer Science Department
-				University of Monastir, Tunisia.
+				Currently working as a AI Developer at Vermeg and finishing my
+				masters thesis - Computer Science Department University of
+				Monastir, Tunisia.
 			</p>
 		</Container>
 	);
