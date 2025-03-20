@@ -5,12 +5,10 @@ const routes = [
 	{
 		path: '/',
 		element: <App />,
-		children: [
-			{
-				path: ':postId',
-				element: <Post />,
-			},
-		],
+	},
+	{
+		path: 'posts/:postId',
+		element: <Post />,
 	},
 ];
 
