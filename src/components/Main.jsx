@@ -13,7 +13,7 @@ function Main() {
 
 	return (
 		<>
-			<Bio />
+			<Bio title={true} />
 			<div>
 				{posts.map(
 					(post) =>

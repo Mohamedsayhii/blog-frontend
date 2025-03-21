@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -12,10 +13,12 @@ const Container = styled.div`
 	}
 `;
 
-function Bio() {
+function Bio({ title }) {
+	const header = title === true ? 'About Me' : 'About Mohamed Sayhi';
+
 	return (
 		<Container>
-			<h2>About Me</h2>
+			<h2>{header}</h2>
 			<p>
 				CS Enthusiast, AI Researcher and Programming lover at heart.
 				Currently working as a AI Developer at Vermeg and finishing my
@@ -25,5 +28,9 @@ function Bio() {
 		</Container>
 	);
 }
+
+Bio.propTypes = {
+	title: PropTypes.bool.isRequired,
+};
 
 export default Bio;
