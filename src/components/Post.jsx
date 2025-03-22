@@ -76,6 +76,25 @@ function Post() {
 					/>
 				))}
 			</Comments>
+			<h1>Add Comment</h1>
+			<form
+				action={`http://localhost:3000/posts/${postId}/comments`}
+				method='post'
+			>
+				<input
+					type='text'
+					name='author'
+					id='author'
+					placeholder='Enter your name'
+				/>
+				<input
+					type='text'
+					name='text'
+					id='text'
+					placeholder='Enter your comment'
+				/>
+				<button type='submit'>Add your comment</button>
+			</form>
 		</Wrapper>
 	);
 }
