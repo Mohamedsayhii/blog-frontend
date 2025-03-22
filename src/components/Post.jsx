@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Bio from './Bio';
 import moment from 'moment';
 import styled from 'styled-components';
+import Comment from './Comment';
 
 const Wrapper = styled.div`
 	.post {
@@ -25,16 +26,26 @@ const Wrapper = styled.div`
 	}
 `;
 
+const Comments = styled.div`
+	margin-top: 1.5rem;
+	text-align: left;
+`;
+
+const postPromise = (postId) => fetch(`http://localhost:3000/posts/${postId}`);
+const commentsPromise = (postId) =>
+	fetch(`http://localhost:3000/posts/${postId}/comments`);
+
 function Post() {
 	const { postId } = useParams();
 	const [post, setPost] = useState();
+	const [comments, setComments] = useState([]);
 
 	useEffect(() => {
 		const postFetch = async () => {
-			const data = await (
-				await fetch(`http://localhost:3000/posts/${postId}`)
-			).json();
-			setPost(data);
+			const postData = await (await postPromise(postId)).json();
+			setPost(postData);
+			const commentsData = await (await commentsPromise(postId)).json();
+			setComments(commentsData);
 		};
 
 		postFetch();
@@ -53,6 +64,18 @@ function Post() {
 				<p>{post.content}</p>
 			</div>
 			<Bio title={false} />
+			{/* <div style={{ border: '1px solid #cccccc', width: '100%' }}></div> */}
+			<Comments>
+				<h1>{comments.length ? 'Comments' : ''}</h1>
+				{comments.map((comment) => (
+					<Comment
+						key={comment.id}
+						author={comment.author}
+						text={comment.text}
+						date={comment.date}
+					/>
+				))}
+			</Comments>
 		</Wrapper>
 	);
 }
