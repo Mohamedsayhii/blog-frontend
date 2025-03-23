@@ -31,25 +31,86 @@ const Comments = styled.div`
 	text-align: left;
 `;
 
-const postPromise = (postId) => fetch(`http://localhost:3000/posts/${postId}`);
-const commentsPromise = (postId) =>
-	fetch(`http://localhost:3000/posts/${postId}/comments`);
+const CommentForm = styled.form`
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+
+	input,
+	textarea {
+		font-family: inherit;
+		width: 100%;
+		padding: 1rem;
+		font-size: 1.6rem;
+		border: 1px solid #ccc;
+		border-radius: 8px;
+	}
+
+	textarea {
+		min-height: 100px;
+		resize: vertical;
+	}
+
+	button {
+		padding: 1rem;
+		font-size: 1.6rem;
+		background: green;
+		color: white;
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: background 0.3s;
+	}
+
+	button:hover {
+		background: #0056b3;
+	}
+`;
 
 function Post() {
 	const { postId } = useParams();
 	const [post, setPost] = useState();
 	const [comments, setComments] = useState([]);
+	const [author, setAuthor] = useState('');
+	const [text, setText] = useState('');
 
 	useEffect(() => {
-		const postFetch = async () => {
-			const postData = await (await postPromise(postId)).json();
+		Promise.all([
+			fetch(`http://localhost:3000/posts/${postId}`).then((res) =>
+				res.json()
+			),
+			fetch(`http://localhost:3000/posts/${postId}/comments`).then(
+				(res) => res.json()
+			),
+		]).then(([postData, commentsData]) => {
 			setPost(postData);
-			const commentsData = await (await commentsPromise(postId)).json();
 			setComments(commentsData);
-		};
-
-		postFetch();
+		});
 	}, [postId]);
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const res = await fetch(
+			`http://localhost:3000/posts/${postId}/comments`,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ author, text }),
+			}
+		);
+
+		const data = await res.json();
+		if (!res.ok) {
+			console.log(data);
+			throw new Error(data.message || 'Failed to add comment');
+		}
+
+		setComments([...comments, data]);
+		setAuthor('');
+		setText('');
+	};
 
 	if (!post) return 'LOADING';
 
@@ -77,24 +138,22 @@ function Post() {
 				))}
 			</Comments>
 			<h1>Add Comment</h1>
-			<form
-				action={`http://localhost:3000/posts/${postId}/comments`}
-				method='post'
-			>
+			<CommentForm onSubmit={handleSubmit}>
 				<input
 					type='text'
 					name='author'
-					id='author'
 					placeholder='Enter your name'
+					value={author}
+					onChange={(e) => setAuthor(e.target.value)}
 				/>
-				<input
-					type='text'
+				<textarea
 					name='text'
-					id='text'
 					placeholder='Enter your comment'
+					value={text}
+					onChange={(e) => setText(e.target.value)}
 				/>
 				<button type='submit'>Add your comment</button>
-			</form>
+			</CommentForm>
 		</Wrapper>
 	);
 }
