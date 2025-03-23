@@ -32,10 +32,14 @@ const Comments = styled.div`
 `;
 
 const CommentForm = styled.form`
-	margin-top: 2rem;
+	margin-top: 1rem;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+
+	h4 {
+		color: red;
+	}
 
 	input,
 	textarea {
@@ -74,6 +78,7 @@ function Post() {
 	const [comments, setComments] = useState([]);
 	const [author, setAuthor] = useState('');
 	const [text, setText] = useState('');
+	const [error, setError] = useState();
 
 	useEffect(() => {
 		Promise.all([
@@ -103,13 +108,14 @@ function Post() {
 
 		const data = await res.json();
 		if (!res.ok) {
-			console.log(data);
-			throw new Error(data.message || 'Failed to add comment');
+			setError(data.message);
+			return;
 		}
 
 		setComments([...comments, data]);
 		setAuthor('');
 		setText('');
+		setError();
 	};
 
 	if (!post) return 'LOADING';
@@ -139,6 +145,7 @@ function Post() {
 			</Comments>
 			<h1>Add Comment</h1>
 			<CommentForm onSubmit={handleSubmit}>
+				{error && <h4>{error}</h4>}
 				<input
 					type='text'
 					name='author'
