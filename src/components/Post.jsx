@@ -27,7 +27,6 @@ const Wrapper = styled.div`
 `;
 
 const Comments = styled.div`
-	margin-top: 1.5rem;
 	text-align: left;
 `;
 
@@ -68,7 +67,7 @@ const CommentForm = styled.form`
 	}
 
 	button:hover {
-		background: #0056b3;
+		background: darkgreen;
 	}
 `;
 
@@ -108,7 +107,7 @@ function Post() {
 
 		const data = await res.json();
 		if (!res.ok) {
-			setError(data.message);
+			setError(data.message.split(','));
 			return;
 		}
 
@@ -145,7 +144,9 @@ function Post() {
 			</Comments>
 			<h1>Add Comment</h1>
 			<CommentForm onSubmit={handleSubmit}>
-				{error && <h4>{error}</h4>}
+				{error &&
+					// eslint-disable-next-line react/jsx-key
+					error.map((e) => <h4>{e}</h4>)}
 				<input
 					type='text'
 					name='author'
