@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -38,7 +39,7 @@ const LoginForm = styled.form`
 	flex-direction: column;
 	gap: 1rem;
 
-	h4 {
+	h3 {
 		color: red;
 	}
 
@@ -68,21 +69,55 @@ const LoginForm = styled.form`
 `;
 
 function Login() {
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
+
+	const handleLogin = async (e) => {
+		e.preventDefault();
+
+		const response = await fetch('http://localhost:3000/auth/login', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email, password }),
+		});
+
+		const data = await response.json();
+
+		if (!response.ok) {
+			setError(data.message);
+			return;
+		}
+
+		window.location.href = '/home'; // Redirect to home
+	};
+
 	return (
 		<Wrapper>
 			<div className='slogan'>
 				<h1>Your Personal Blog.</h1>
 				<h2>Share your thoughts online.</h2>
 			</div>
-			{/* {errors} */}
-			<LoginForm action='/' method='post'>
+			<LoginForm onSubmit={handleLogin}>
+				{error && <h3>{error}</h3>}
 				<div className='form-field'>
-					<label htmlFor='username'>Username</label>
-					<input type='text' name='username' id='username' required />
+					<label>Email</label>
+					<input
+						type='text'
+						name='email'
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						required
+					/>
 				</div>
 				<div className='form-field'>
-					<label htmlFor='password'>Password</label>
-					<input type='password' name='password' id='password' />
+					<label>Password</label>
+					<input
+						type='password'
+						name='password'
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+					/>
 				</div>
 				<button type='submit'>Log In</button>
 			</LoginForm>

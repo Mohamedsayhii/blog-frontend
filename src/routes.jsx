@@ -12,7 +12,7 @@ const routes = [
 		element: <Post />,
 	},
 	{
-		path: '/login',
+		path: 'login',
 		element: <Login />,
 	},
 ];
