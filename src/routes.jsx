@@ -1,4 +1,5 @@
 import App from './App';
+import Login from './components/Login';
 import Post from './components/Post';
 
 const routes = [
@@ -9,6 +10,10 @@ const routes = [
 	{
 		path: 'posts/:postId',
 		element: <Post />,
+	},
+	{
+		path: '/login',
+		element: <Login />,
 	},
 ];
 
