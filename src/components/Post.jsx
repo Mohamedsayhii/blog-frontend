@@ -84,8 +84,8 @@ function Post() {
 			fetch(`http://localhost:3000/posts/${postId}`).then((res) =>
 				res.json()
 			),
-			fetch(`http://localhost:3000/posts/${postId}/comments`).then(
-				(res) => res.json()
+			fetch(`http://localhost:3000/comments/${postId}/`).then((res) =>
+				res.json()
 			),
 		]).then(([postData, commentsData]) => {
 			setPost(postData);
@@ -96,14 +96,11 @@ function Post() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const res = await fetch(
-			`http://localhost:3000/posts/${postId}/comments`,
-			{
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ author, text }),
-			}
-		);
+		const res = await fetch(`http://localhost:3000/comments/${postId}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ author, text }),
+		});
 
 		const data = await res.json();
 		if (!res.ok) {
@@ -115,6 +112,8 @@ function Post() {
 		setAuthor('');
 		setText('');
 		setError();
+
+		location.reload();
 	};
 
 	if (!post) return 'LOADING';
