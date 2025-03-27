@@ -52,6 +52,7 @@ const Post = styled.div`
 function BlogOverview() {
 	const [posts, setPosts] = useState([]);
 	const [comments, setComments] = useState([]);
+	const [activePostId, setActivePostId] = useState(null);
 
 	useEffect(() => {
 		const dataFetch = async () => {
@@ -69,7 +70,11 @@ function BlogOverview() {
 		dataFetch();
 	}, []);
 
-	console.log(comments);
+	const handleCommentsToggle = (postId) => {
+		activePostId === postId
+			? setActivePostId(null)
+			: setActivePostId(postId);
+	};
 
 	return (
 		<Overview>
@@ -82,9 +87,37 @@ function BlogOverview() {
 						<div className='buttons'>
 							<button>Edit Post</button>
 							<button>Delete Post</button>
-							<button>Show Comments</button>
+							<button
+								onClick={() => handleCommentsToggle(post.id)}
+							>
+								{activePostId === post.id
+									? 'Hide Comments'
+									: 'Show Comments'}
+							</button>
 						</div>
 					</div>
+					{activePostId === post.id &&
+						(comments.filter(
+							(comment) => comment.postId === activePostId
+						).length > 0 ? (
+							<div className='comments'>
+								{comments
+									.filter(
+										(comment) => comment.postId === post.id
+									)
+									.map((comment) => (
+										<div
+											key={comment.id}
+											className='comment'
+										>
+											<h4>{comment.author}</h4>
+											<button>Delete Comment</button>
+										</div>
+									))}
+							</div>
+						) : (
+							<p>No comments for this post yet.</p>
+						))}
 				</Post>
 			))}
 		</Overview>
