@@ -76,6 +76,14 @@ function BlogOverview() {
 			: setActivePostId(postId);
 	};
 
+	const deleteComment = async (commentId) => {
+		await fetch(`http://localhost:3000/comments/${commentId}`, {
+			method: 'DELETE',
+		});
+
+		location.reload();
+	};
+
 	return (
 		<Overview>
 			<h1 className='title'>Your Blog</h1>
@@ -111,7 +119,13 @@ function BlogOverview() {
 											className='comment'
 										>
 											<h4>{comment.author}</h4>
-											<button>Delete Comment</button>
+											<button
+												onClick={() =>
+													deleteComment(comment.id)
+												}
+											>
+												Delete Comment
+											</button>
 										</div>
 									))}
 							</div>
