@@ -77,19 +77,21 @@ function BlogOverview() {
 	};
 
 	const deletePost = async (postId) => {
-		await fetch(`http://localhost:3000/posts/${postId}`, {
-			method: 'DELETE',
-		});
-
-		location.reload();
+		if (window.confirm('Are you sure you want to delete this post?')) {
+			await fetch(`http://localhost:3000/posts/${postId}`, {
+				method: 'DELETE',
+			});
+			location.reload();
+		}
 	};
 
 	const deleteComment = async (commentId) => {
-		await fetch(`http://localhost:3000/comments/${commentId}`, {
-			method: 'DELETE',
-		});
-
-		location.reload();
+		if (window.confirm('Are you sure you want to delete this comment?')) {
+			await fetch(`http://localhost:3000/comments/${commentId}`, {
+				method: 'DELETE',
+			});
+			location.reload();
+		}
 	};
 
 	return (
@@ -102,7 +104,7 @@ function BlogOverview() {
 						<h2>{post.title}</h2>
 						<div className='buttons'>
 							<button>Edit Post</button>
-							<button onClick={() => deleteComment(post.id)}>
+							<button onClick={() => deletePost(post.id)}>
 								Delete Post
 							</button>
 							<button
