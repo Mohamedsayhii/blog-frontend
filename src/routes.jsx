@@ -2,6 +2,7 @@ import App from './App';
 import BlogOverview from './components/BlogOverview';
 import Login from './components/Login';
 import Post from './components/Post';
+import PostForm from './components/PostForm';
 
 const routes = [
 	{
@@ -18,8 +19,12 @@ const routes = [
 	},
 	{
 		path: 'home',
-		element: <BlogOverview/>
-	}
+		element: <BlogOverview />,
+	},
+	{
+		path: 'home/postform',
+		element: <PostForm />,
+	},
 ];
 
 export default routes;

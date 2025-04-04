@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Overview = styled.div`
@@ -9,6 +10,15 @@ const Overview = styled.div`
 
 	.mini-title {
 		text-align: left;
+	}
+
+	#createPostBtn {
+		padding: 1rem 2rem;
+		margin: 1rem 0;
+		font-size: 1.4rem;
+		font-weight: bold;
+		background-color: green;
+		color: white;
 	}
 `;
 
@@ -97,13 +107,18 @@ function BlogOverview() {
 	return (
 		<Overview>
 			<h1 className='title'>Your Blog</h1>
+			<Link to='postform'>
+				<button id='createPostBtn'>Create Post</button>
+			</Link>
 			<h1 className='mini-title'>Posts</h1>
 			{posts.map((post) => (
 				<Post key={post.id}>
 					<div className='post-header'>
 						<h2>{post.title}</h2>
 						<div className='buttons'>
-							<button>Edit Post</button>
+							<Link to='postform'>
+								<button>Edit Post</button>
+							</Link>
 							<button onClick={() => deletePost(post.id)}>
 								Delete Post
 							</button>
@@ -146,6 +161,7 @@ function BlogOverview() {
 						))}
 				</Post>
 			))}
+			<Outlet />
 		</Overview>
 	);
 }
