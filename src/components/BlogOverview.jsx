@@ -116,7 +116,13 @@ function BlogOverview() {
 					<div className='post-header'>
 						<h2>{post.title}</h2>
 						<div className='buttons'>
-							<Link to='postform'>
+							<Link
+								to='postform'
+								state={{
+									title: post.title,
+									content: post.content,
+								}}
+							>
 								<button>Edit Post</button>
 							</Link>
 							<button onClick={() => deletePost(post.id)}>
