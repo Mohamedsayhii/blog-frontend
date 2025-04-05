@@ -119,8 +119,10 @@ function BlogOverview() {
 							<Link
 								to='postform'
 								state={{
+									id: post.id,
 									title: post.title,
 									content: post.content,
+									published: post.published,
 								}}
 							>
 								<button>Edit Post</button>

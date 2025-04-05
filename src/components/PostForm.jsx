@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const FormWrapper = styled.div`
+const FormWrapper = styled.form`
 	min-width: 600px;
 	margin: 2rem auto;
 	padding: 2rem;
@@ -16,6 +16,10 @@ const FormWrapper = styled.div`
 	input,
 	textarea {
 		font-family: inherit;
+	}
+
+	h4 {
+		color: red;
 	}
 `;
 
@@ -73,15 +77,46 @@ const Button = styled.button`
 `;
 
 function PostForm() {
+	const [id, setId] = useState('');
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
-	const [published, setPublished] = useState('true');
+	const [published, setPublished] = useState('');
 	const [editMode, setEditMode] = useState(false);
+	const [error, setError] = useState('');
 
 	const location = useLocation();
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const url = editMode
+			? `http://localhost:3000/posts/${id}`
+			: `http://localhost:3000/posts/`;
+		const httpVerb = editMode ? 'PUT' : 'POST';
+
+		const res = await fetch(url, {
+			method: httpVerb,
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ title, content, published }),
+		});
+
+		const data = await res.json();
+		if (!res.ok) {
+			setError(data.message);
+			return;
+		}
+
+		setId('');
+		setTitle('');
+		setContent('');
+		setError('');
+		navigate('/home');
+	};
 
 	useEffect(() => {
 		if (location.state) {
+			setId(location.state.id || '');
 			setTitle(location.state.title || '');
 			setContent(location.state.content || '');
 			setPublished(location.state.published || '');
@@ -90,7 +125,8 @@ function PostForm() {
 	}, [location.state]);
 
 	return (
-		<FormWrapper>
+		<FormWrapper onSubmit={handleSubmit}>
+			{error && <h4>{error}</h4>}
 			<Input
 				type='text'
 				name='title'
@@ -111,14 +147,16 @@ function PostForm() {
 				<select
 					name='published'
 					id='published'
-					value={published}
+					value={published ? 'true' : 'false'}
 					onChange={(e) => setPublished(e.target.value)}
 				>
 					<option value='true'>Yes</option>
 					<option value='false'>No</option>
 				</select>
 			</SelectWrapper>
-			<Button>{editMode ? 'Edit Post' : 'Create Post'}</Button>
+			<Button type='submit'>
+				{editMode ? 'Edit Post' : 'Create Post'}
+			</Button>
 		</FormWrapper>
 	);
 }
