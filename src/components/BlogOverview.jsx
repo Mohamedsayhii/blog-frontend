@@ -15,7 +15,7 @@ const Overview = styled.div`
 	#createPostBtn {
 		padding: 1rem 2rem;
 		margin: 1rem 0;
-		font-size: 1.4rem;
+		font-size: 1.2rem;
 		font-weight: bold;
 		background-color: green;
 		color: white;

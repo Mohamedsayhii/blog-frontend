@@ -47,13 +47,23 @@ const Textarea = styled.textarea`
 	}
 `;
 
+const SelectWrapper = styled.div`
+	display: flex;
+	font-size: 1.5rem;
+	gap: 1rem;
+
+	select {
+		padding: 0 0.5rem;
+	}
+`;
+
 const Button = styled.button`
 	padding: 0.75rem 1.5rem;
 	background-color: green;
 	color: white;
 	border: none;
 	border-radius: 8px;
-	font-size: 1rem;
+	font-size: 1.5rem;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 
@@ -65,6 +75,7 @@ const Button = styled.button`
 function PostForm() {
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
+	const [published, setPublished] = useState('true');
 	const [editMode, setEditMode] = useState(false);
 
 	const location = useLocation();
@@ -73,6 +84,7 @@ function PostForm() {
 		if (location.state) {
 			setTitle(location.state.title || '');
 			setContent(location.state.content || '');
+			setPublished(location.state.published || '');
 			setEditMode(true);
 		}
 	}, [location.state]);
@@ -94,6 +106,18 @@ function PostForm() {
 				value={content}
 				onChange={(e) => setContent(e.target.value)}
 			></Textarea>
+			<SelectWrapper>
+				<label htmlFor='published'>Publish post:</label>
+				<select
+					name='published'
+					id='published'
+					value={published}
+					onChange={(e) => setPublished(e.target.value)}
+				>
+					<option value='true'>Yes</option>
+					<option value='false'>No</option>
+				</select>
+			</SelectWrapper>
 			<Button>{editMode ? 'Edit Post' : 'Create Post'}</Button>
 		</FormWrapper>
 	);
