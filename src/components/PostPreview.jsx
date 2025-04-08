@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 		font-weight: 300;
 	}
 
-	p {
+	.content-preview {
 		padding: 2rem;
 		text-align: justify;
 		font-size: 1.7rem;
@@ -44,7 +44,10 @@ function PostPreview({ id, title, content, date }) {
 		<Wrapper>
 			<div className='date'>{moment(date).format('MMMM Do YYYY')}</div>
 			<h1>{title}</h1>
-			<p>{previewText(content, 50)}</p>
+			<div
+				className='content-preview'
+				dangerouslySetInnerHTML={{ __html: previewText(content, 50) }}
+			/>
 			<Link to={`posts/${id}`}>
 				<button>Read More</button>
 			</Link>

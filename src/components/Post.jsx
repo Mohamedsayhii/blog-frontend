@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 			font-size: 5.5rem;
 		}
 
-		p {
+		.content {
 			text-align: left;
 			font-size: 2rem;
 		}
@@ -126,7 +126,10 @@ function Post() {
 					{moment(post.date).format('MMMM Do YYYY')}
 				</h4>
 				<h1>{post.title}</h1>
-				<p>{post.content}</p>
+				<div
+					className='content'
+					dangerouslySetInnerHTML={{ __html: post.content }}
+				/>
 			</div>
 			<Bio title={false} />
 			{/* <div style={{ border: '1px solid #cccccc', width: '100%' }}></div> */}
