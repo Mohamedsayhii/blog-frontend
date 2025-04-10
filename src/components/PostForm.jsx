@@ -139,7 +139,7 @@ function PostForm() {
 			<Editor
 				value={content}
 				onEditorChange={(newValue) => setContent(newValue)}
-				apiKey='h9w0qugbe35gzkjk1jm3p1spa5ghtt550ynugcm3ry5j0dch'
+				apiKey={import.meta.env.VITE_TINYMCE}
 				init={{
 					plugins: [
 						// Core editing features
