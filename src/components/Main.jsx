@@ -6,7 +6,7 @@ function Main() {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
-		fetch('http://localhost:3000/posts/')
+		fetch('definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts/')
 			.then((res) => res.json())
 			.then((json) => setPosts(json));
 	}, []);

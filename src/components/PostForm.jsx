@@ -92,8 +92,8 @@ function PostForm() {
 		e.preventDefault();
 
 		const url = editMode
-			? `http://localhost:3000/posts/${id}`
-			: `http://localhost:3000/posts/`;
+			? `definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts/${id}`
+			: `definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts/`;
 		const httpVerb = editMode ? 'PUT' : 'POST';
 
 		const res = await fetch(url, {

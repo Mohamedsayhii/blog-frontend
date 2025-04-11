@@ -81,12 +81,12 @@ function Post() {
 
 	useEffect(() => {
 		Promise.all([
-			fetch(`http://localhost:3000/posts/${postId}`).then((res) =>
-				res.json()
-			),
-			fetch(`http://localhost:3000/comments/${postId}/`).then((res) =>
-				res.json()
-			),
+			fetch(
+				`definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts/${postId}`
+			).then((res) => res.json()),
+			fetch(
+				`definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments/${postId}/`
+			).then((res) => res.json()),
 		]).then(([postData, commentsData]) => {
 			setPost(postData);
 			setComments(commentsData);
@@ -96,11 +96,14 @@ function Post() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const res = await fetch(`http://localhost:3000/comments/${postId}`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ author, text }),
-		});
+		const res = await fetch(
+			`definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments/${postId}`,
+			{
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ author, text }),
+			}
+		);
 
 		const data = await res.json();
 		if (!res.ok) {
