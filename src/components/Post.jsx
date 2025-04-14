@@ -82,10 +82,10 @@ function Post() {
 	useEffect(() => {
 		Promise.all([
 			fetch(
-				`definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts/${postId}`
+				`https://definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts/${postId}`
 			).then((res) => res.json()),
 			fetch(
-				`definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments/${postId}/`
+				`https://definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments/${postId}/`
 			).then((res) => res.json()),
 		]).then(([postData, commentsData]) => {
 			setPost(postData);
@@ -97,7 +97,7 @@ function Post() {
 		e.preventDefault();
 
 		const res = await fetch(
-			`definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments/${postId}`,
+			`https://definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments/${postId}`,
 			{
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },

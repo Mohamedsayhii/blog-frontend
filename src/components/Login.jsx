@@ -77,7 +77,7 @@ function Login() {
 		e.preventDefault();
 
 		const response = await fetch(
-			'definite-etheline-ms-personal-73ef4f8e.koyeb.app/auth/login',
+			'https://definite-etheline-ms-personal-73ef4f8e.koyeb.app/auth/login',
 			{
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },

@@ -68,10 +68,10 @@ function BlogOverview() {
 		const dataFetch = async () => {
 			Promise.all([
 				fetch(
-					`definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts`
+					`https://definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts`
 				).then((res) => res.json()),
 				fetch(
-					`definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments`
+					`https://definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments`
 				).then((res) => res.json()),
 			]).then(([postData, commentsData]) => {
 				setPosts(postData);
@@ -91,7 +91,7 @@ function BlogOverview() {
 	const deletePost = async (postId) => {
 		if (window.confirm('Are you sure you want to delete this post?')) {
 			await fetch(
-				`definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts/${postId}`,
+				`https://definite-etheline-ms-personal-73ef4f8e.koyeb.app/posts/${postId}`,
 				{
 					method: 'DELETE',
 				}
@@ -103,7 +103,7 @@ function BlogOverview() {
 	const deleteComment = async (commentId) => {
 		if (window.confirm('Are you sure you want to delete this comment?')) {
 			await fetch(
-				`definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments/${commentId}`,
+				`https://definite-etheline-ms-personal-73ef4f8e.koyeb.app/comments/${commentId}`,
 				{
 					method: 'DELETE',
 				}
